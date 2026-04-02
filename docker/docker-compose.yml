@@ -1,0 +1,18 @@
+services:
+  gather:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: gatherscanpush:latest
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - type: bind
+        source: ./workdir
+        target: /data
+      - type: bind
+        source: ${SSH_DIR:?set SSH_DIR in .env}
+        target: /root/.ssh
+        read_only: true
+    tty: true
