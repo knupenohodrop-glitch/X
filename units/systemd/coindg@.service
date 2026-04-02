@@ -1,0 +1,15 @@
+[Unit]
+Description=coinDataGatherer for %i
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/data
+EnvironmentFile=-/etc/coindg/%i.env
+ExecStart=/opt/gatherscan/run-coindg-systemd.sh %i
+Restart=always
+RestartSec=2
+
+[Install]
+WantedBy=multi-user.target
